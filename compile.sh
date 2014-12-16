@@ -19,11 +19,13 @@ set -o errexit
 OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 
-while getopts "h?f:c:" opt; do
+while getopts "h?f:c:p:" opt; do
     case "$opt" in
     f)  CONFIG_FILE=${OPTARG}
         ;;
-    c)  COMPILE_ARGS=${OPTARG}
+    c)  COMPILE_ARGS+=${OPTARG}
+        ;;
+    p)  NEW_COIN_PATH=${OPTARG}
         ;;
     esac
 done

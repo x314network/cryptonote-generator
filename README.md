@@ -1,5 +1,5 @@
-cryptonote-generator
-==================
+cryptonote-generator (CryptoNote Starter Edition)
+=================================================
 
 A python / bash Cryptonote source creator. Generate and compile new or maintain old code with a single command. 
 
@@ -19,7 +19,7 @@ A python / bash Cryptonote source creator. Generate and compile new or maintain 
 
 #### Features
 
-* Cryptonote source code creation, based on the latest Bytecoin code
+* Cryptonote source code creation, based on the latest CryptoNote Starter code
 * Plugin based code creation
 * Simple update for existing code
 * Compilation for
@@ -30,8 +30,9 @@ A python / bash Cryptonote source creator. Generate and compile new or maintain 
 ### Community / Support
 
 * [CryptoNote Forum](https://forum.cryptonote.org/)
-* [Bytecoin Github](https://github.com/amjuarez/bytecoin)
+* [CryptoNote Starter Github](https://github.com/cryptonotefoundation/cryptonote)
 * [Dashcoin Announcement Thread](https://bitcointalk.org/index.php?topic=678232.0)
+* [CryptoNote Starter Edition Thread](...)
 * IRC (freenode)
   * Support / general / development discussion join #dashcoin: [https://webchat.freenode.net/?channels=#dashcoin](https://webchat.freenode.net/?channels=#dashcoin)
 
@@ -183,8 +184,8 @@ bash generator.sh -c ''
 Plugins must be located in *plugins* folder.
 
 
-Donations
----------
+Donations to Dashcoin developers
+--------------------------------
 * BTC: `1EYiA8o1KsDZxMHXvptxXyaVwuhTVNBMFp`
 * DSH: `D3z2DDWygoZU4NniCNa4oMjjKi45dC2KHUWUyD1RZ1pfgnRgcHdfLVQgh5gmRv4jwEjCX5LoLERAf5PbjLS43Rkd8vFUM1m`
 * BCN: `21YR5mw5BF2ah3yVE3kbhkjDwvuv21VR6D7hnpm4zHveDsvq5WEwyTxXLXNwtU5K4Pen89ZZzJ81fB3vxHABEUJCAhxXz2v`

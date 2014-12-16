@@ -16,8 +16,8 @@ set -o nounset
 function finish {
 	# Remove temporary files if exist
 	echo "Remove temporary files..."
-	rm -f "${UPDATES_PATH}"
-	rm -rf "${TEMP_PATH}"
+	#rm -f "${UPDATES_PATH}"
+	#rm -rf "${TEMP_PATH}"
 }
 trap finish EXIT
 
@@ -38,7 +38,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
 CONFIG_FILE='config.json'
-COMPILE_ARGS='-j'
+COMPILE_ARGS='--jobs=2'
 
 while getopts "h?f:c:" opt; do
     case "$opt" in
@@ -48,7 +48,7 @@ while getopts "h?f:c:" opt; do
         ;;
     f)  CONFIG_FILE=${OPTARG}
         ;;
-    c)  COMPILE_ARGS=${OPTARG}
+    c)  COMPILE_ARGS+=${OPTARG}
         ;;
     esac
 done
@@ -65,12 +65,16 @@ if [ ! -f ${CONFIG_FILE} ]; then
 	exit
 fi
 
+NEW_COIN_NAME=`grep -E "CRYPTONOTE_NAME" ${CONFIG_FILE} | grep -E -o ':\"[^\"]+\"' | grep -E -o "[a-zA-Z0-9]+"`
+NEW_COIN_PATH="${WORK_FOLDERS_PATH}/${NEW_COIN_NAME}"
+echo $NEW_COIN_PATH
+
 if [ -d "${BASE_COIN_PATH}" ]; then
-	echo "Updating Bytecoin..."
+	echo "Updating CryptoNote starter..."
 	git pull
 else
-	echo "Cloning Bytecoin..."
-	git clone https://github.com/amjuarez/bytecoin.git "${BASE_COIN_PATH}"
+	echo "Cloning CryptoNote starter..."
+	git clone https://github.com/cryptonotefoundation/cryptonote.git "${BASE_COIN_PATH}"
 fi
 
 echo "Make temporary base coin copy..."
@@ -105,5 +109,5 @@ if [ ! -z "${UPDATES_PATH}"  ]; then
 	# Generate new coin
 	cd "${NEW_COIN_PATH}" && patch -s -p1 < "${UPDATES_PATH}" && cd "${SCRIPTS_PATH}"
 
-	bash "${SCRIPTS_PATH}/compile.sh" -f $CONFIG_FILE -c $COMPILE_ARGS
+	bash "${SCRIPTS_PATH}/compile.sh" -f $CONFIG_FILE -c $COMPILE_ARGS -p ${NEW_COIN_PATH}
 fi
