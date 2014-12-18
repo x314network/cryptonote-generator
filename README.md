@@ -140,11 +140,11 @@ The file `config.json` is used by default but a file can be specified using the 
 bash generator.sh -f config_dashcoin.json
 ```
 
-If you compile on VPS with no swap defined you have to remove the default '-j' compile flag using the `-c <string>` command argument, for example:
+If you compile on VPS with no swap defined you have to remove the default '--jobs=3' compile flag using the `-c <string>` command argument, for example:
 ```bash
 bash generator.sh -c ''
 ```
-*the default -c value is '-j'*
+*the default -c value is '--jobs=3'*
 
 
 ### Examples
@@ -183,6 +183,11 @@ bash generator.sh -c ''
 
 Plugins must be located in *plugins* folder.
 
+Donations to CryptoNote Starter Edition developers
+--------------------------------------------------
+* BTC: `1KHj72YeUorS5FHiJpxrGiMAd4eQsuLbSY`
+* BCN: `23pLXofuagwQvCnEaswQzJYSxSRuuVmwgE2N3T8XYpkU8k56DudhJNLfdYKyZwcKr74uRxVmCMD7RHgbeZcFq2qk4rKHjdL`
+* XMR: `482DHUPij217jSjnAtkgWxYTScEaGfVhr54E34ET2uT521G7JqvoGLxJrZAbdLpWKEca1xoKBDaTmG2H1ZJ6ccADHGgsKPv`
 
 Donations to Dashcoin developers
 --------------------------------
