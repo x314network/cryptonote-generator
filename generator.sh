@@ -38,7 +38,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
 CONFIG_FILE='config.json'
-COMPILE_ARGS='--jobs=2'
+COMPILE_ARGS='--jobs=3'
 
 while getopts "h?f:c:" opt; do
     case "$opt" in

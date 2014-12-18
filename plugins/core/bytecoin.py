@@ -65,6 +65,8 @@ if 'MAX_BLOCK_SIZE_INITIAL' in config['core']:
 	MAX_BLOCK_SIZE_INITIAL_re = re.compile(r"(#define\s+MAX_BLOCK_SIZE_INITIAL)", re.IGNORECASE)
 if 'genesisCoinbaseTxHex' in config['core']:
         genesisCoinbaseTxHex_re = re.compile(r"(#define\s+GENESIS_COINBASE_TX_HEX)\s+\"\"\s*", re.IGNORECASE)
+else:
+        genesisCoinbaseTxHex_re = re.compile(r"^(#define\s+GENESIS_COINBASE_TX_HEX.*)$", re.IGNORECASE)
 
 
 for line in fileinput.input([paths['cryptonote_config']], inplace=True):
@@ -100,7 +102,8 @@ for line in fileinput.input([paths['cryptonote_config']], inplace=True):
         if 'genesisCoinbaseTxHex' in config['core']:
   	        line = genesisCoinbaseTxHex_re.sub("\\1 \"%s\"" % config['core']['genesisCoinbaseTxHex'], line)
 	else:
-		line = UPGRADE_HEIGHT_re.sub("\\1 %s" % "1", line)
+		#line = UPGRADE_HEIGHT_re.sub("\\1 %s" % "1", line)
+                line = genesisCoinbaseTxHex_re.sub("#define GENESIS_COINBASE_TX_HEX \"\"", line)
 
 	# sys.stdout is redirected to the file
 	sys.stdout.write(line)
@@ -112,7 +115,8 @@ cryptonote_config_file = open(paths['cryptonote_config'],'r')
 cryptonote_config_content = cryptonote_config_file.read()
 cryptonote_config_file.close()
 cryptonote_config_content = SEED_NODES_re.sub("\\1 %s \\2" % config['core']['SEED_NODES'], cryptonote_config_content)
-cryptonote_config_content = CHECKPOINTS_re.sub("\\1 %s \\2" % config['core']['CHECKPOINTS'], cryptonote_config_content)
+if 'CHECKPOINS' in config['core']:
+	cryptonote_config_content = CHECKPOINTS_re.sub("\\1 %s \\2" % config['core']['CHECKPOINTS'], cryptonote_config_content)
 cryptonote_config_file = open(paths['cryptonote_config'], "w")
 cryptonote_config_file.write(cryptonote_config_content)
 cryptonote_config_file.close()

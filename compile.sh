@@ -70,6 +70,28 @@ if [[ $? == "0" ]]; then
 	echo "Compilation successful"
 fi
 
+# Generate genesis
+grep -v "GENESIS_COINBASE_TX_HEX" ${NEW_COIN_PATH}/src/cryptonote_config.h > ${NEW_COIN_PATH}/src/cryptonote_config.new
+mv ${NEW_COIN_PATH}/src/cryptonote_config.new ${NEW_COIN_PATH}/src/cryptonote_config.h   
+${NEW_COIN_PATH}/build/release/src/${daemon_name} --print-genesis-tx | grep "GENESIS_COINBASE_TX_HEX" >> ${NEW_COIN_PATH}/src/cryptonote_config.h
+
+echo "New genesis coinbase tx generated. Going to recompile ..."
+
+cd ${NEW_COIN_PATH}/build/release/
+
+# Recompile!
+if [[ "$OSTYPE" == "msys" ]]; then
+	cmake -DBOOST_ROOT=C:\sdk\boost_1_55_0 -DBOOST_LIBRARYDIR=C:\sdk\boost_1_55_0\lib64-msvc-11.0 -G "Visual Studio 11 Win64" ".."
+	msbuild.exe Project.sln /p:Configuration=Release ${COMPILE_ARGS}
+else
+	cmake -D STATIC=ON -D ARCH="x86-64" -D CMAKE_BUILD_TYPE=Release ../..
+	MAKE_STATUS=$( make ${COMPILE_ARGS} )
+fi
+
+if [[ $? == "0" ]]; then
+	echo "Recompilation successful"
+fi
+
 # Move and zip binaries
 case "$OSTYPE" in
   msys*) 	rm -f ${BUILD_PATH}/${WINDOWS_BUILD_NAME}.zip
