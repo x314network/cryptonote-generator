@@ -1,8 +1,8 @@
 
 {
     "base_coin": {
-        "name": "bytecoin",
-        "git": "https://github.com/amjuarez/bytecoin.git"
+        "name": "x314",
+        "git": "https://github.com/x314network/cryptonote-generator.git"
     },
     "core": {
         "SEED_NODES": [],
